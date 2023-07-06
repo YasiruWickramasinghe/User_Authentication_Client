@@ -13,13 +13,13 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/" >Home</NavLink>
+                            <NavLink className="nav-link" to="/" >HOME</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/users" >USERS</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/newuser" >NEW USER</NavLink>
+                            <NavLink className="nav-link" to="/profile" >PROFILE</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/about" >ABOUT</NavLink>
@@ -30,7 +30,7 @@ function Navbar() {
                             <NavLink className="nav-link" to="/login" >LOGIN</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/signup" >SIGNUP</NavLink>
+                            <NavLink className="nav-link" to="/register" >SIGNUP</NavLink>
                         </li>
                     </ul>
                 </div>

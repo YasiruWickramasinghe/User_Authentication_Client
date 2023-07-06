@@ -3,10 +3,10 @@ import Navbar from "./templates/Navbar"
 
 import Home from "./pages/Home"
 import About from "./pages/About"
-import Users from './pages/Users';
-import NewUser from './pages/NewUser';
-import Login from "./pages/Login"
-import Signup from "./pages/Signup"
+import UserLogin from './pages/blogPages/UserLogin';
+import UserRegister from './pages/blogPages/UserRegister';
+import UserProfile from './pages/blogPages/UserProfile';
+import UsersView from './pages/blogPages/UsersView';
 
 import Footer from './templates/Footer';
 
@@ -19,11 +19,11 @@ function App() {
         <div className="container">
         <Routes>
           <Route path="/" Component={Home} />
-          <Route path="/users" Component={Users} />
-          <Route path="/newuser" Component={NewUser} />
+          <Route path="/users" Component={UsersView} />
+          <Route path="/register" Component={UserRegister} />
+          <Route path="/login" Component={UserLogin} />
+          <Route path="/profile" Component={UserProfile} />
           <Route path="/about" Component={About} />
-          <Route path="/login" Component={Login} />
-          <Route path="/signup" Component={Signup} />
         </Routes>
         </div>
         <Footer/>
