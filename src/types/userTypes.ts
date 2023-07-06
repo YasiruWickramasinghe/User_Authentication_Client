@@ -1,16 +1,10 @@
-export interface Blog {
-    _id: string;
+export interface User {
+    id: string;
     name: string;
-    author: string;
+    email: string;
+    role: string;
     createdAt: string;
     updatedAt: string;
-}
-
-export interface BlogPaginatedResponse {
-    data: Blog[];
-    totalCount: number;
-    currentPage: number;
-    totalPages: number;
-}
-
-
+    
+  }
+  

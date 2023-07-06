@@ -16,7 +16,7 @@ function App() {
     <>
       <Router>
         <Navbar />
-        <div className="container">
+        <div className="container mt-3 mb-5">
         <Routes>
           <Route path="/" Component={Home} />
           <Route path="/users" Component={UsersView} />
