@@ -1,38 +1,38 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { logoutUser } from '../service/userAPI';
+import Swal from 'sweetalert2';
 
 function Navbar() {
   const location = useLocation();
   const isLoggedIn = localStorage.getItem('accessToken') !== null;
+  const navigateTo = useNavigate();
 
-  const renderAuthenticatedLinks = () => (
-    <ul className="navbar-nav ml-auto text-right">
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/profile">
-          PROFILE
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/logout">
-          LOGOUT
-        </NavLink>
-      </li>
-    </ul>
-  );
+  const [error, setError] = useState('');
 
-  const renderGuestLinks = () => (
-    <ul className="navbar-nav ml-auto text-right">
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/login">
-          LOGIN
-        </NavLink>
-      </li>
-      <li className="nav-item">
-        <NavLink className="nav-link" to="/register">
-          SIGNUP
-        </NavLink>
-      </li>
-    </ul>
-  );
+  const handleLogout = async () => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      if (accessToken) {
+        await logoutUser(accessToken);
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Logged out!',
+            text: 'Come Again',
+            showConfirmButton: false,
+            timer: 1000,
+          });
+      }
+      navigateTo('/');
+    } catch (error) {
+      setError('Logout failed. Please try again.');
+    }
+  };
+  
+  
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -58,11 +58,14 @@ function Navbar() {
             </NavLink>
           </li>
           {isLoggedIn && (
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/users">
-                USERS
-              </NavLink>
-            </li>
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/users">
+                  USERS
+                </NavLink>
+              </li>
+              
+            </>
           )}
           <li className="nav-item">
             <NavLink className="nav-link" to="/about">
@@ -70,8 +73,35 @@ function Navbar() {
             </NavLink>
           </li>
         </ul>
-        {isLoggedIn ? renderAuthenticatedLinks() : renderGuestLinks()}
+        {isLoggedIn ? (
+          <ul className="navbar-nav ml-auto text-right">
+            <li className="nav-item">
+                <NavLink className="nav-link" to="/profile">
+                  PROFILE
+                </NavLink>
+              </li>
+            <li className="nav-item">
+              <button className="nav-link btn btn-link" onClick={handleLogout}>
+                LOGOUT
+              </button>
+            </li>
+          </ul>
+        ) : (
+          <ul className="navbar-nav ml-auto text-right">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/login">
+                LOGIN
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/register">
+                SIGNUP
+              </NavLink>
+            </li>
+          </ul>
+        )}
       </div>
+      {error && <p className="text-danger">{error}</p>}
     </nav>
   );
 }
