@@ -45,7 +45,7 @@ const UserRegister: React.FC = () => {
       // Reset message after 2 seconds
       setTimeout(() => {
         setSubmissionCompleted(false);
-        navigateTo('/users');
+        navigateTo('/login');
       }, 2000);
     } catch (error: any) {
 
@@ -59,10 +59,7 @@ const UserRegister: React.FC = () => {
         } else {
           setRegistrationError('Registration failed. Please try again.');
         }
-      } else {
-        setRegistrationError('An unexpected error occurred. Please try again.');
-      }
-
+      } 
     }
   };
 
