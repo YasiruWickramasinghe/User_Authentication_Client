@@ -5,6 +5,7 @@ import Card from '../../components/Card';
 import { loginUser } from '../../service/userAPI';
 import Swal from 'sweetalert2';
 import Button from '../../components/Button';
+import FormField from '../../components/formComponents/FormField';
 
 type LoginFormData = {
   email: string;
@@ -64,24 +65,19 @@ const UserLogin: React.FC = () => {
         <div className="col-lg-6">
           <Card header={<h2>LOGIN</h2>}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="form-group">
-                <label>Email</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  {...register('email', { required: 'Email is required' })}
-                />
-                {errors.email && <p className="text-danger">{errors.email.message}</p>}
-              </div>
-              <div className="form-group">
-                <label>Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  {...register('password', { required: 'Password is required' })}
-                />
-                {errors.password && <p className="text-danger">{errors.password.message}</p>}
-              </div>
+              <FormField
+                label="Email"
+                name="email"
+                register={register('email', { required: 'Email is required' })}
+                error={errors.email}
+              />
+              <FormField
+                label="Password"
+                name="password"
+                type="password"
+                register={register('password', { required: 'Password is required' })}
+                error={errors.password}
+              />
               {loginError && <p className="text-danger">{loginError}</p>}
               <div className="d-flex justify-content-center mt-5">
                 <Button type="submit" buttonStyle="btn btn-success btn-block">

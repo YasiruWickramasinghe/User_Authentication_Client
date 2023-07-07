@@ -7,6 +7,7 @@ import UserLogin from './pages/blogPages/UserLogin';
 import UserRegister from './pages/blogPages/UserRegister';
 import UserProfile from './pages/blogPages/UserProfile';
 import UsersView from './pages/blogPages/UsersView';
+import UserUpdate from './pages/blogPages/UserUpdate';
 
 import Footer from './templates/Footer';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/register" Component={UserRegister} />
           <Route path="/login" Component={UserLogin} />
           <Route path="/profile" Component={UserProfile} />
+          <Route path="/profileupdate:id" Component={UserUpdate} />
           <Route path="/about" Component={About} />
         </Routes>
         </div>

@@ -25,6 +25,22 @@ export const loginUser = async (email: string, password: string): Promise<{ acce
     }
 };
 
+export const getUserProfile = async (
+    accessToken: string
+  ): Promise<{ user: any }> => {
+    try {
+      const response: AxiosResponse<{ user: any }> = await userAPI.get('/profile', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      handleRequestError(error);
+      throw error;
+    }
+  };
+
 export const updateUserProfile = async (
     userData: { name: string; email: string; oldPassword: string; newPassword: string },
     accessToken: string
