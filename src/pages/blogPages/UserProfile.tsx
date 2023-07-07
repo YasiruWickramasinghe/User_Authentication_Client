@@ -42,7 +42,6 @@ const UserProfile = () => {
   };
 
   const handleDeleteClick = () => {
-    // navigateTo(`/profileupdate/${id}`);
     console.log('click delete')
   };
 
