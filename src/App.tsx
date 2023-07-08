@@ -3,11 +3,11 @@ import Navbar from "./templates/Navbar"
 
 import Home from "./pages/Home"
 import About from "./pages/About"
-import UserLogin from './pages/blogPages/UserLogin';
-import UserRegister from './pages/blogPages/UserRegister';
-import UserProfile from './pages/blogPages/UserProfile';
-import UsersView from './pages/blogPages/UsersView';
-import UserUpdate from './pages/blogPages/UserUpdate';
+import UserLogin from './pages/userPages/UserLogin';
+import UserRegister from './pages/userPages/UserRegister';
+import UserProfile from './pages/userPages/UserProfile';
+import UsersView from './pages/userPages/UsersView';
+import UserUpdate from './pages/userPages/UserUpdate';
 
 import Footer from './templates/Footer';
 
