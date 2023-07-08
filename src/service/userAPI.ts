@@ -46,7 +46,7 @@ export const updateUserProfile = async (
     accessToken: string
 ): Promise<void> => {
     try {
-        await userAPI.put('/profile', userData, {
+        await userAPI.put('/profileupdate', userData, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
@@ -59,7 +59,7 @@ export const updateUserProfile = async (
 
 export const deleteUserProfile = async (accessToken: string): Promise<void> => {
     try {
-        await userAPI.delete('/profile', {
+        await userAPI.delete('/profiledelete', {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },

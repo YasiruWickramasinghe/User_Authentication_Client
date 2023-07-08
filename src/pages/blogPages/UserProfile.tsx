@@ -36,8 +36,7 @@ const UserProfile = () => {
   }, []);
 
   const handleUpdateClick = () => {
-    // navigateTo(`/profileupdate/${id}`);
-    console.log('click update');
+    navigateTo('/profileupdate');
   };
 
   const handleDeleteClick = (id: string) => {
@@ -94,28 +93,36 @@ const UserProfile = () => {
         <div className="row justify-content-center">
           <div className="col-lg-6">
             {userProfile && (
-              <Card header={<h2>{userProfile.name}</h2>}>
-                <p>Email: {userProfile.email}</p>
-                <p>Welcome </p>
-                <div className="row justify-content-center mt-3">
-                  <div className="col-md-6">
-                    <Button
-                      buttonStyle={'btn btn-outline-warning btn-block'}
-                      onClick={() => handleUpdateClick()}
-                    >
-                      UPDATE
-                    </Button>
+              <>
+                <Card header={<h2>{userProfile.name}</h2>}>
+                <p>Name: {userProfile.name}</p>
+                  <p>Email: {userProfile.email}</p>
+                  <p>Welcome </p>
+                  <div className="row justify-content-center mt-3">
+                    <div className="col-md-6">
+                      <Button
+                        buttonStyle={'btn btn-outline-warning btn-block'}
+                        onClick={() => handleUpdateClick()}
+                      >
+                        UPDATE
+                      </Button>
+                    </div>
                   </div>
-                  <div className="col-md-6">
-                    <Button
-                      buttonStyle={'btn btn-outline-danger btn-block'}
-                      onClick={() => handleDeleteClick(userProfile.id)}
-                    >
-                      DELETE
-                    </Button>
+                </Card>
+                <br/>
+                <Card header={<h4>CANCEL ACCOUNT</h4>} >
+                  <div className="row justify-content-center mt-3">
+                    <div className="col-md-6">
+                      <Button
+                        buttonStyle={'btn btn-outline-danger btn-block'}
+                        onClick={() => handleDeleteClick(userProfile.id)}
+                      >
+                        DELETE ACCOUNT
+                      </Button>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </>
             )}
           </div>
         </div>

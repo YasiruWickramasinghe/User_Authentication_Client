@@ -24,7 +24,7 @@ function App() {
           <Route path="/register" Component={UserRegister} />
           <Route path="/login" Component={UserLogin} />
           <Route path="/profile" Component={UserProfile} />
-          <Route path="/profileupdate:id" Component={UserUpdate} />
+          <Route path="/profileupdate" Component={UserUpdate} />
           <Route path="/about" Component={About} />
         </Routes>
         </div>
