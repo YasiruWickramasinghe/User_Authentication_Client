@@ -42,11 +42,11 @@ const UserRegister: React.FC = () => {
       // Show submission completed message
       setSubmissionCompleted(true);
 
-      // Reset message after 2 seconds
+      // Reset message after 0.5 seconds
       setTimeout(() => {
         setSubmissionCompleted(false);
         navigateTo('/login');
-      }, 2000);
+      }, 500);
     } catch (error: any) {
 
       if (error.response.status === 400) {

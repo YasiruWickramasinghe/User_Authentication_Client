@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getUserProfile } from '../../service/userAPI';
+import { getUserProfile, deleteUserProfile, logoutUser } from '../../service/userAPI';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../components/Card';
 import Button from '../../components/Button';
+import Swal from 'sweetalert2';
 
 interface UserProfileData {
   id: string;
@@ -13,7 +14,6 @@ interface UserProfileData {
 
 const UserProfile = () => {
   const [userProfile, setUserProfile] = useState<UserProfileData | null>(null);
-
   const navigateTo = useNavigate();
 
   useEffect(() => {
@@ -25,7 +25,6 @@ const UserProfile = () => {
           const response = await getUserProfile(accessToken);
           setUserProfile(response.user);
         } else {
-          //if token invalid
           navigateTo('/login');
         }
       } catch (error) {
@@ -38,11 +37,55 @@ const UserProfile = () => {
 
   const handleUpdateClick = () => {
     // navigateTo(`/profileupdate/${id}`);
-    console.log('click update')
+    console.log('click update');
   };
 
-  const handleDeleteClick = () => {
-    console.log('click delete')
+  const handleDeleteClick = (id: string) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await handleDeleteConfirmation(id);
+      }
+    });
+  };
+
+  const handleDeleteConfirmation = async (id: string) => {
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+
+      if (accessToken) {
+        await deleteUserProfile(accessToken);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Come Again!',
+          text: 'Your profile has been removed',
+          showConfirmButton: false,
+          timer: 1000
+        });
+
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        navigateTo('/');
+
+      } else {
+        console.error('Access token not found.');
+      }
+    } catch (error) {
+      console.error('Error deleting user profile:', error);
+      Swal.fire(
+        'Error',
+        'An error occurred while deleting the profile.',
+        'error'
+      );
+    }
   };
 
   return (
@@ -62,12 +105,11 @@ const UserProfile = () => {
                     >
                       UPDATE
                     </Button>
-
                   </div>
                   <div className="col-md-6">
                     <Button
                       buttonStyle={'btn btn-outline-danger btn-block'}
-                      onClick={() => handleDeleteClick()}
+                      onClick={() => handleDeleteClick(userProfile.id)}
                     >
                       DELETE
                     </Button>

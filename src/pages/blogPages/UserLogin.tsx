@@ -21,6 +21,7 @@ const UserLogin: React.FC = () => {
   } = useForm<LoginFormData>();
   const [loginError, setLoginError] = useState<string | null>('');
   const navigateTo = useNavigate();
+  const [submissionCompleted, setSubmissionCompleted] = useState(false);
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -41,8 +42,14 @@ const UserLogin: React.FC = () => {
       // Clear form fields
       reset();
 
-      // Redirect to the user's dashboard or any other desired page
-      navigateTo('/profile');
+      // Show submission completed message
+      setSubmissionCompleted(true);
+
+      // Reset message after 0.5 seconds
+      setTimeout(() => {
+        setSubmissionCompleted(false);
+        navigateTo('/profile');
+      }, 500);
     } catch (error: any) {
 
       if (error.response.status === 400 || error.response.status === 404 || error.response.status === 401) {
@@ -84,6 +91,7 @@ const UserLogin: React.FC = () => {
                   LOGIN
                 </Button>
               </div>
+              {submissionCompleted}
             </form>
           </Card>
         </div>
