@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getUserProfile, deleteUserProfile, logoutUser } from '../../service/userAPI';
+import { getUserProfile, deleteUserProfile} from '../../service/userAPI';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../components/Card';
 import Button from '../../components/Button';

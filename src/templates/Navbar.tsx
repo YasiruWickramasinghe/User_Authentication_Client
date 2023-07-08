@@ -1,14 +1,33 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { logoutUser } from '../service/userAPI';
+import { logoutUser, getUserProfile } from '../service/userAPI';
 import Swal from 'sweetalert2';
 
 function Navbar() {
   const location = useLocation();
   const isLoggedIn = localStorage.getItem('accessToken') !== null;
   const navigateTo = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      try {
+        const accessToken = localStorage.getItem('accessToken');
+        if (accessToken) {
+          const { user } = await getUserProfile(accessToken);
+          setIsAdmin(user.role === 'admin');
+        }
+      } catch (error) {
+        setError('Failed to fetch user profile. Please try again.');
+      }
+    };
+
+    if (isLoggedIn) {
+      checkAdminStatus();
+    }
+  }, [isLoggedIn]);
 
   const handleLogout = async () => {
     try {
@@ -57,15 +76,12 @@ function Navbar() {
               HOME
             </NavLink>
           </li>
-          {isLoggedIn && (
-            <>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/users">
-                  USERS
-                </NavLink>
-              </li>
-              
-            </>
+          {isAdmin && (
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/users">
+                USERS
+              </NavLink>
+            </li>
           )}
           <li className="nav-item">
             <NavLink className="nav-link" to="/about">
